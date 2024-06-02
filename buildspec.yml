@@ -9,18 +9,18 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Docker Hub...
-      - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+      - docker login -u $venkateshaws -p $VEN_83332g
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t my-docker-project .
-      - docker tag my-docker-project:latest $DOCKERHUB_USERNAME/my-docker-project:latest
+      - docker tag my-docker-project:latest $venkateshaws/my-docker-project:latest
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push $DOCKERHUB_USERNAME/my-docker-project:latest
+      - docker push $venkateshaws/my-docker-project:latest
 artifacts:
   files:
     - app.py
