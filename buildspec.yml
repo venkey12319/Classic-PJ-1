@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+    commands:
+      - echo Installing Docker...
+  pre_build:
+    commands:
+      - echo Logging in to Docker Hub...
+      - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t my-docker-project .
+      - docker tag my-docker-project:latest $DOCKERHUB_USERNAME/my-docker-project:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $DOCKERHUB_USERNAME/my-docker-project:latest
+artifacts:
+  files:
+    - app.py
+    - requirements.txt
+    - Dockerfile
+  discard-paths: yes
